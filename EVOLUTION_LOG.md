@@ -1,5 +1,35 @@
 # OKX AI PRO — Evolution Log
 
+## 2026-09-14 — V4 Multi-Agent Council + Simulation
+
+### 新研究：TauricResearch/TradingAgents
+- 吸收其“分析角色分工 → 风险审查 → Portfolio Manager 最终决策”的架构思想。
+- 重点采用：角色隔离、结构化决策、Risk/Portfolio Manager 最终门控、决策日志、异常输出应进入 REVIEW/WAIT 而不是变成交易。
+- 不复制第三方业务代码；本项目针对 OKX/加密市场独立实现。
+
+### 实际晋级
+- Technical Agent：趋势、EMA、RSI、价格结构、Regime。
+- Flow Agent：20档盘口与主动成交 TFI。
+- Derivatives Agent：Funding/OI 上下文；Funding 不简单映射方向。
+- Risk Agent：数据陈旧、低置信度、跨 Agent 冲突时拥有独立 VETO。
+- Portfolio Manager：Risk 通过后才给 BUY CANDIDATE / EXIT / WAIT。
+- 新增浏览器纸上模拟账本：10,000 USDT 初始资金、现货、单次最多10%权益、无做空、无杠杆；高置信度多源确认后才模拟开仓，VETO/信号恶化/3%单笔止损触发退出。
+- 新增 `api/okx-demo.js`：OKX Demo 私有 REST 的服务器端签名适配器，固定 `x-simulated-trading: 1`；支持健康检查、余额、持仓、挂单和受限现货 Demo 下单入口。
+- API 凭证只允许部署环境变量；不得进入前端/GitHub/localStorage/聊天。
+- 真钱实盘继续关闭。
+
+### 当前边界
+- GitHub Pages 只能运行静态前端；OKX Demo 私有签名必须部署到安全后端后才能真正连接模拟账户。
+- 当前纸上模拟已经可运行，但它不是 OKX 官方 Demo 账户。
+- 在完成 Demo 长期观察、OOS/walk-forward、费用滑点和压力测试之前，不晋级真钱实盘。
+
+### 相关提交
+- Demo adapter: `3f03265736b120cddc853edc5ed3b945b367df3d`
+- V4 architecture: `09f4f6dccfe863d0819169a5b7bbdb0a0a97e9cb`
+- V4 dashboard + paper simulation: `9dfe904f82e618eb3ce77338d3a77969c4cb9a21`
+
+---
+
 ## 2026-09-14 — V3.1 数据韧性与成交订单流确认层
 
 ### 基线
@@ -15,41 +45,11 @@
 - **社区/短视频扫描**：社区反复强调滑点、延迟、低流动性和 paper/live 差异；抖音中“流动性/主力控盘”类内容缺乏可复现实证，因此只作为线索，不进入策略。关于马丁格尔/高收益 EA 风险的内容与本项目“禁止追损加杠杆”原则一致，但不作为独立策略证据。
 
 ### 候选改进与结论
-1. **Data Guard（通过）**
-   - 从 `Promise.all` 改为 `Promise.allSettled`：单个 Funding/OI/盘口/成交接口失败时，核心行情仍可运行。
-   - 核心 ticker/K线缺失或过期时，Risk Brain 直接否决；辅助源缺失时进入降级模式。
-   - 增加数据源可用数量、行情延迟、Risk Veto 状态。
-   - 这是可靠性/安全升级，不依赖收益回测即可晋级。
+1. **Data Guard（通过）**：辅助接口故障降级；核心 ticker/K线缺失或过期时 Risk Brain 直接否决。
+2. **主动成交订单流 TFI（有限通过）**：只用于多源确认/冲突降置信度，未直接晋级为独立收益因子。
+3. **Funding 作为简单方向因子（淘汰）**：仅作为拥挤度上下文。
+4. **单次盘口快照直接推断庄家意图（淘汰）**。
+5. **短视频/论坛策略直接入库（淘汰）**。
 
-2. **主动成交订单流 TFI（有限通过）**
-   - 新增 OKX 最近成交数据，计算主动买/主动卖成交占比与 trade-flow imbalance。
-   - **暂不直接加入主评分权重**；只用于趋势/盘口的多源确认或冲突降置信度。
-   - 原因：研究支持其信息价值，但当前尚无本项目自己的历史 tick/replay OOS 证据，直接加权属于过早晋级。
-
-3. **Funding 作为方向因子（淘汰）**
-   - 不再把正 Funding 简单解释为“偏多”、负 Funding 简单解释为“偏空”。
-   - Funding 仅保留为拥挤度提示，等待历史验证后再考虑作为反转/趋势条件。
-
-4. **单次盘口快照直接推断“庄家意图”（淘汰）**
-   - 单快照容易受撤单、诱导单和瞬时噪声影响。
-   - V3.1 要求价格趋势 + 盘口 + 主动成交方向至少互相印证，才给出“行为假设”，仍不称为事实。
-
-5. **短视频/论坛策略直接入库（淘汰）**
-   - 没有可重复数据、代码或官方资料支撑的观点，不进入主策略。
-
-### 实际仓库升级
-- 版本：**V3.1 数据韧性**
-- 提交：`a8af782b3ccd1386b5725225d994b2dd6ccb8a7a`
-- 新增：Data Guard、成交订单流 TFI、证据置信度、数据陈旧检查、辅助源故障降级、Risk Brain 数据否决。
-- 保持：自动实盘关闭、提现权限不需要、禁止追损/自动加杠杆、4/6/8 风险框架不放宽。
-
-### 今日没有宣称的内容
-- 没有宣称 V3.1 提高了收益率或胜率。
-- 没有完成 tick 级历史 replay / OOS，因此 TFI 只进入确认层。
-- 没有把短视频、论坛帖子或收益截图当成交易证据。
-
-### 下一轮优先验证
-1. 建立可回放的盘口 + 成交 tick 数据层，测试 TFI/OBI 的持续性、半衰期和不同 Regime 表现。
-2. 加入 OI 历史变化率，而不是只看 OI 绝对值；研究价格 × OI × Funding 的联合状态。
-3. 为未来执行层建立 spread + latency + volatility 的保守滑点模型，并把成本门槛放进策略晋级测试。
-4. 将研究大脑与未来订单执行器继续隔离：AI 可以提出候选，确定性 Risk/Execution 层决定是否允许执行。
+### V3.1 提交
+- `a8af782b3ccd1386b5725225d994b2dd6ccb8a7a`
