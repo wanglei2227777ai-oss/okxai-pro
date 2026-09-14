@@ -1,1 +1,174 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#07111f"><link rel="manifest" href="manifest.json"><title>OKX AI PRO</title><style>*{box-sizing:border-box}body{margin:0;background:#07111f;color:#eef5ff;font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.app{max-width:1180px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.brand{font-weight:800;font-size:22px}.live,.good{color:#52e0a0}.warn{color:#ffd166}.bad{color:#ff6b6b}.muted{color:#91a7bd}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}.card{background:#0d1b2b;border:1px solid #1d334a;border-radius:18px;padding:16px}.hero{grid-column:span 8}.side{grid-column:span 4}.half{grid-column:span 6}.third{grid-column:span 4}.full{grid-column:1/-1}.price{font-size:38px;font-weight:800;margin:8px 0}.coins button,.tf button{background:#13283c;color:#dcecff;border:1px solid #29435c;border-radius:10px;padding:9px 13px;margin:3px}.coins button.on,.tf button.on{background:#eef5ff;color:#07111f}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}.stat,.metric{background:#091522;padding:10px;border-radius:12px}.score{font-size:52px;font-weight:800}.signal{font-size:20px;font-weight:700}.bar{height:8px;background:#172c40;border-radius:8px;overflow:hidden;margin:6px 0 12px}.bar i{display:block;height:100%;background:#57c7ff}.row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #1b3045}.pill{display:inline-block;padding:5px 9px;border-radius:20px;background:#13283c}.log{font-family:ui-monospace,monospace;font-size:12px;line-height:1.8;max-height:190px;overflow:auto}.prob,.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}.metrics{margin-top:10px}.big{font-size:24px;font-weight:800}.foot{text-align:center;color:#6f879e;padding:18px}@media(max-width:760px){.hero,.side,.half,.third{grid-column:1/-1}.stats{grid-template-columns:repeat(2,1fr)}.app{padding:12px}.price{font-size:32px}}</style></head><body><main class="app"><header class="top"><div><div class="brand">OKX AI PRO</div><div class="muted">AI Market Brain · V3 数据大脑</div></div><div id="live" class="live">● PUBLIC LIVE</div></header><section class="grid"><article class="card hero"><div class="coins"><button class="on" data-id="BTC-USDT">BTC</button><button data-id="ETH-USDT">ETH</button><button data-id="SOL-USDT">SOL</button></div><div id="inst" class="muted">BTC-USDT</div><div id="price" class="price">连接 OKX…</div><span id="change" class="pill">--</span><div class="stats"><div class="stat">24H High<br><b id="hi">--</b></div><div class="stat">24H Low<br><b id="lo">--</b></div><div class="stat">24H Open<br><b id="open">--</b></div><div class="stat">Volume<br><b id="vol">--</b></div></div><div class="tf" style="margin-top:12px"><span class="muted">分析周期：</span><button data-tf="15m">15m</button><button class="on" data-tf="1H">1H</button><button data-tf="4H">4H</button></div></article><article class="card side"><div class="muted">AI 综合评分</div><div id="score" class="score">--</div><div id="signal" class="signal">等待数据</div><p id="why" class="muted">正在融合K线、盘口、资金费率与持仓量。</p><div class="prob"><div>做多<br><b id="pl">--</b></div><div>等待<br><b id="pw">--</b></div><div>做空<br><b id="ps">--</b></div></div></article><article class="card half"><h3>AI Brain · V3 多因子融合</h3><div>趋势 <span id="tV"></span><div class="bar"><i id="tB"></i></div></div><div>动量 <span id="mV"></span><div class="bar"><i id="mB"></i></div></div><div>价格结构 <span id="lV"></span><div class="bar"><i id="lB"></i></div></div><div>盘口买卖压力 <span id="bV"></span><div class="bar"><i id="bB"></i></div></div><div>衍生品情绪 <span id="dV"></span><div class="bar"><i id="dB"></i></div></div><div>波动质量 <span id="vV"></span><div class="bar"><i id="vB"></i></div></div><div class="muted">V3 是透明的规则/统计融合引擎，不冒充已训练机器学习模型。</div></article><article class="card half"><h3>市场状态 · Regime</h3><div class="row"><span>状态</span><b id="regime">分析中</b></div><div class="metrics"><div class="metric">EMA20<br><b id="ema20">--</b></div><div class="metric">EMA50<br><b id="ema50">--</b></div><div class="metric">RSI14<br><b id="rsi">--</b></div></div><div class="row"><span>大资金/庄家意图</span><b id="intent">概率不足</b></div><p class="muted">这里只做概率推断：盘口倾斜、价格趋势、衍生品情绪必须互相印证。</p></article><article class="card third"><h3>盘口 · Order Book</h3><div class="row"><span>买盘占比</span><b id="bidShare">--</b></div><div class="row"><span>卖盘占比</span><b id="askShare">--</b></div><div class="row"><span>买卖失衡</span><b id="imbalance">--</b></div><div class="row"><span>点差</span><b id="spread">--</b></div></article><article class="card third"><h3>永续 · Funding</h3><div class="row"><span>当前资金费率</span><b id="funding">--</b></div><div class="row"><span>下次费率</span><b id="nextFunding">--</b></div><div class="row"><span>情绪解释</span><b id="fundingMood">--</b></div><p class="muted">极端正费率可能代表多头拥挤；极端负费率可能代表空头拥挤。</p></article><article class="card third"><h3>永续 · Open Interest</h3><div class="row"><span>持仓量</span><b id="oi">--</b></div><div class="row"><span>合约</span><b id="swapInst">--</b></div><div class="row"><span>数据状态</span><b id="derivStatus">等待</b></div><p class="muted">当前先读取实时 OI；后续版本加入 OI 历史变化率和清算数据。</p></article><article class="card half"><h3>Risk Brain · 独立风控</h3><div class="row"><span>回撤预警</span><b class="warn">4%</b></div><div class="row"><span>防御模式</span><b class="warn">6%</b></div><div class="row"><span>硬风控目标</span><b class="bad">8%</b></div><div class="row"><span>数据冲突时</span><b class="warn">降低信号置信度</b></div><div class="row"><span>追损 / 自动加杠杆</span><b class="good">禁止</b></div><div class="row"><span>Risk Brain 否决权</span><b class="good">开启</b></div></article><article class="card half"><h3>执行与进化闭环</h3><div class="row"><span>当前交易</span><b>研究 / DEMO FIRST</b></div><div class="row"><span>自动实盘</span><b class="warn">关闭</b></div><div class="row"><span>提现权限</span><b class="good">永不需要</b></div><div class="row"><span>策略晋级</span><b>回测 → OOS → 压测 → 模拟 → 晋级</b></div><div class="row"><span>AI 自改硬风控</span><b class="good">禁止</b></div></article><article class="card full"><h3>AI 决策日志</h3><div id="log" class="log muted">[SYSTEM] AI Brain V3 启动<br>[DATA] K线 + 盘口 + Funding + OI 数据层加载<br>[RISK] 独立 Risk Brain 已启用<br>[EXEC] 实盘交易保持关闭</div></article></section><div class="foot">OKX AI PRO · 研究系统，不构成收益保证或投资建议</div></main><script>let inst='BTC-USDT',tf='1H';const $=x=>document.getElementById(x),cap=x=>Math.max(0,Math.min(100,x));const fmt=x=>Number(x).toLocaleString(undefined,{maximumFractionDigits:2});function bar(id,v){$(id).style.width=cap(v)+'%'}function lg(s){$('log').innerHTML='['+new Date().toLocaleTimeString()+'] '+s+'<br>'+$('log').innerHTML}function ema(a,n){let k=2/(n+1),e=a[0];for(let x of a.slice(1))e=x*k+e*(1-k);return e}function rsi(a,n=14){if(a.length<n+1)return 50;let g=0,l=0;for(let i=a.length-n;i<a.length;i++){let d=a[i]-a[i-1];d>0?g+=d:l-=d}return l===0?100:100-100/(1+g/l)}function sd(a){let m=a.reduce((x,y)=>x+y,0)/a.length;return Math.sqrt(a.reduce((s,x)=>s+(x-m)**2,0)/a.length)}async function get(url){let r=await fetch(url);if(!r.ok)throw Error(r.status);let j=await r.json();if(j.code!=='0')throw Error(j.msg||j.code);return j.data}function swapId(){return inst+'-SWAP'}function orderBookScore(book){let bids=book.bids||[],asks=book.asks||[];let bv=bids.reduce((s,x)=>s+(+x[0])*(+x[1]),0),av=asks.reduce((s,x)=>s+(+x[0])*(+x[1]),0),tot=bv+av||1,share=bv/tot,imb=(bv-av)/tot,bestBid=bids[0]?+bids[0][0]:0,bestAsk=asks[0]?+asks[0][0]:0,mid=(bestBid+bestAsk)/2||1,spr=bestAsk&&bestBid?(bestAsk-bestBid)/mid*100:0;return{share,imb,spr,score:cap(50+imb*100)}}function derivScore(fr){let f=+(fr?.fundingRate||0),abs=Math.abs(f),crowd=cap(abs*100000),direction=f>0?1:f<0?-1:0;return{f,score:cap(50+direction*Math.min(18,crowd*.18))}}async function load(){try{let sid=swapId();let urls=[get('https://www.okx.com/api/v5/market/ticker?instId='+inst),get('https://www.okx.com/api/v5/market/candles?instId='+inst+'&bar='+tf+'&limit=100'),get('https://www.okx.com/api/v5/market/books?instId='+inst+'&sz=20'),get('https://www.okx.com/api/v5/public/funding-rate?instId='+sid),get('https://www.okx.com/api/v5/public/open-interest?instType=SWAP&instId='+sid)];let [td,cd,bd,fd,oid]=await Promise.all(urls);let d=td[0],last=+d.last,op=+d.open24h,hi=+d.high24h,lo=+d.low24h,ch=(last/op-1)*100,c=cd.map(x=>+x[4]).reverse(),e20=ema(c.slice(-60),20),e50=ema(c,50),rv=rsi(c),rets=c.slice(-30).map((x,i,a)=>i?100*(x/a[i-1]-1):0).slice(1),vol=sd(rets),trend=cap(50+(last/e20-1)*900+(e20/e50-1)*1200),mom=cap(50+(rv-50)*1.25),loc=cap(hi===lo?50:(last-lo)/(hi-lo)*100),vq=cap(80-vol*10),ob=orderBookScore(bd[0]||{}),der=derivScore(fd[0]||{}),score=.27*trend+.22*mom+.14*loc+.16*ob.score+.11*der.score+.10*vq;let conflict=(trend>65&&ob.score<40)||(trend<35&&ob.score>60);if(conflict)score=50+(score-50)*.75;let sig=score>=68?'偏多优势 · 等待风控确认':score<=32?'偏空/风险优势 · 避免盲目做多':'中性/震荡 · 等待优势扩大',reg=vol>2.5?'高波动':last>e20&&e20>e50?'多头趋势':last<e20&&e20<e50?'空头趋势':'震荡/过渡';let corroborate=(score>68&&ob.imb>.08&&der.score>=48)||(score<32&&ob.imb<-.08&&der.score<=52),intent=corroborate?(score>50?'偏主动吸筹/买盘增强假设':'偏主动派发/卖盘增强假设'):'证据不足 / 中性';$('price').textContent='$'+fmt(last);$('change').textContent=(ch>=0?'+':'')+ch.toFixed(2)+'%';$('change').className='pill '+(ch>=0?'good':'bad');$('hi').textContent='$'+fmt(hi);$('lo').textContent='$'+fmt(lo);$('open').textContent='$'+fmt(op);$('vol').textContent=fmt(d.vol24h);$('score').textContent=score.toFixed(0);$('signal').textContent=sig;$('why').textContent=tf+'：趋势、动量、价格结构、20档盘口、资金费率、OI 状态共同进入 V3 数据大脑；数据冲突会自动降低置信度。';[['tV','tB',trend],['mV','mB',mom],['lV','lB',loc],['bV','bB',ob.score],['dV','dB',der.score],['vV','vB',vq]].forEach(x=>{$(x[0]).textContent=x[2].toFixed(0);bar(x[1],x[2])});$('ema20').textContent=fmt(e20);$('ema50').textContent=fmt(e50);$('rsi').textContent=rv.toFixed(1);$('regime').textContent=reg;$('intent').textContent=intent;$('bidShare').textContent=(ob.share*100).toFixed(1)+'%';$('askShare').textContent=((1-ob.share)*100).toFixed(1)+'%';$('imbalance').textContent=(ob.imb>=0?'+':'')+(ob.imb*100).toFixed(1)+'%';$('spread').textContent=ob.spr.toFixed(4)+'%';let fr=fd[0]||{};$('funding').textContent=((+fr.fundingRate||0)*100).toFixed(4)+'%';$('nextFunding').textContent=fr.nextFundingRate?((+fr.nextFundingRate)*100).toFixed(4)+'%':'--';$('fundingMood').textContent=der.f>.0005?'多头较拥挤':der.f<-.0005?'空头较拥挤':'中性';let oi=oid[0]||{};$('oi').textContent=oi.oi?fmt(oi.oi):'--';$('swapInst').textContent=sid;$('derivStatus').textContent='Funding / OI 在线';let L=cap(score),S=cap(100-score),W=cap(100-Math.abs(score-50)*2),z=L+S+W;$('pl').textContent=(L/z*100).toFixed(0)+'%';$('ps').textContent=(S/z*100).toFixed(0)+'%';$('pw').textContent=(W/z*100).toFixed(0)+'%';$('live').textContent='● V3 DATA LIVE';$('live').className='live';lg(inst+' '+tf+' | V3='+score.toFixed(0)+' | Book '+(ob.imb*100).toFixed(1)+'% | Funding '+(der.f*100).toFixed(4)+'% | '+reg+(conflict?' | 数据冲突降权':''))}catch(e){$('live').textContent='● 数据重试中';$('live').className='warn';$('why').textContent='有一个或多个 OKX 公共数据接口未读取成功，系统会自动重试。';$('derivStatus').textContent='部分数据重试';lg('DATA ERROR: '+e.message)}}document.querySelectorAll('[data-id]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-id]').forEach(x=>x.classList.remove('on'));b.classList.add('on');inst=b.dataset.id;$('inst').textContent=inst;load()});document.querySelectorAll('[data-tf]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tf]').forEach(x=>x.classList.remove('on'));b.classList.add('on');tf=b.dataset.tf;load()});load();setInterval(load,15000)</script></body></html>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#07111f">
+  <link rel="manifest" href="manifest.json">
+  <title>OKX AI PRO</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#07111f;color:#eef5ff;font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    .app{max-width:1180px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.brand{font-weight:800;font-size:22px}
+    .live,.good{color:#52e0a0}.warn{color:#ffd166}.bad{color:#ff6b6b}.muted{color:#91a7bd}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
+    .card{background:#0d1b2b;border:1px solid #1d334a;border-radius:18px;padding:16px}.hero{grid-column:span 8}.side{grid-column:span 4}.half{grid-column:span 6}.third{grid-column:span 4}.full{grid-column:1/-1}
+    .price{font-size:38px;font-weight:800;margin:8px 0}.coins button,.tf button{background:#13283c;color:#dcecff;border:1px solid #29435c;border-radius:10px;padding:9px 13px;margin:3px}.coins button.on,.tf button.on{background:#eef5ff;color:#07111f}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}.stat,.metric{background:#091522;padding:10px;border-radius:12px}.score{font-size:52px;font-weight:800}.signal{font-size:20px;font-weight:700}
+    .bar{height:8px;background:#172c40;border-radius:8px;overflow:hidden;margin:6px 0 12px}.bar i{display:block;height:100%;background:#57c7ff}.row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #1b3045}.pill{display:inline-block;padding:5px 9px;border-radius:20px;background:#13283c}
+    .log{font-family:ui-monospace,monospace;font-size:12px;line-height:1.8;max-height:210px;overflow:auto}.prob,.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}.metrics{margin-top:10px}.foot{text-align:center;color:#6f879e;padding:18px}
+    @media(max-width:760px){.hero,.side,.half,.third{grid-column:1/-1}.stats{grid-template-columns:repeat(2,1fr)}.app{padding:12px}.price{font-size:32px}}
+  </style>
+</head>
+<body>
+<main class="app">
+  <header class="top">
+    <div><div class="brand">OKX AI PRO</div><div class="muted">AI Market Brain · V3.1 数据韧性</div></div>
+    <div id="live" class="live">● PUBLIC LIVE</div>
+  </header>
+
+  <section class="grid">
+    <article class="card hero">
+      <div class="coins"><button class="on" data-id="BTC-USDT">BTC</button><button data-id="ETH-USDT">ETH</button><button data-id="SOL-USDT">SOL</button></div>
+      <div id="inst" class="muted">BTC-USDT</div><div id="price" class="price">连接 OKX…</div><span id="change" class="pill">--</span>
+      <div class="stats"><div class="stat">24H High<br><b id="hi">--</b></div><div class="stat">24H Low<br><b id="lo">--</b></div><div class="stat">24H Open<br><b id="open">--</b></div><div class="stat">Volume<br><b id="vol">--</b></div></div>
+      <div class="tf" style="margin-top:12px"><span class="muted">分析周期：</span><button data-tf="15m">15m</button><button class="on" data-tf="1H">1H</button><button data-tf="4H">4H</button></div>
+    </article>
+
+    <article class="card side">
+      <div class="muted">AI 综合评分</div><div id="score" class="score">--</div><div id="signal" class="signal">等待数据</div>
+      <p id="why" class="muted">正在融合K线、盘口、成交订单流与衍生品数据。</p>
+      <div class="prob"><div>做多<br><b id="pl">--</b></div><div>等待<br><b id="pw">--</b></div><div>做空<br><b id="ps">--</b></div></div>
+    </article>
+
+    <article class="card half">
+      <h3>AI Brain · 核心因子</h3>
+      <div>趋势 <span id="tV"></span><div class="bar"><i id="tB"></i></div></div>
+      <div>动量 <span id="mV"></span><div class="bar"><i id="mB"></i></div></div>
+      <div>价格结构 <span id="lV"></span><div class="bar"><i id="lB"></i></div></div>
+      <div>盘口买卖压力 <span id="bV"></span><div class="bar"><i id="bB"></i></div></div>
+      <div>波动质量 <span id="vV"></span><div class="bar"><i id="vB"></i></div></div>
+      <div class="muted">V3.1 仍是透明规则/统计融合引擎。成交订单流本版先做“确认/否决”而非直接加权追涨，避免未经验证的新因子污染主评分。</div>
+    </article>
+
+    <article class="card half">
+      <h3>市场状态 · Regime</h3>
+      <div class="row"><span>状态</span><b id="regime">分析中</b></div>
+      <div class="metrics"><div class="metric">EMA20<br><b id="ema20">--</b></div><div class="metric">EMA50<br><b id="ema50">--</b></div><div class="metric">RSI14<br><b id="rsi">--</b></div></div>
+      <div class="row"><span>证据置信度</span><b id="confidence">--</b></div>
+      <div class="row"><span>大资金行为假设</span><b id="intent">证据不足</b></div>
+      <p class="muted">只有价格趋势、盘口与主动成交方向互相印证时才给出行为假设；否则保持中性。</p>
+    </article>
+
+    <article class="card third">
+      <h3>盘口 · Order Book</h3>
+      <div class="row"><span>买盘占比</span><b id="bidShare">--</b></div><div class="row"><span>卖盘占比</span><b id="askShare">--</b></div><div class="row"><span>买卖失衡</span><b id="imbalance">--</b></div><div class="row"><span>点差</span><b id="spread">--</b></div>
+    </article>
+
+    <article class="card third">
+      <h3>成交订单流 · Taker Flow</h3>
+      <div class="row"><span>主动买成交</span><b id="takerBuy">--</b></div><div class="row"><span>主动卖成交</span><b id="takerSell">--</b></div><div class="row"><span>成交失衡 TFI</span><b id="tfi">--</b></div><div class="row"><span>确认状态</span><b id="flowConfirm">--</b></div>
+    </article>
+
+    <article class="card third">
+      <h3>永续 · Derivatives</h3>
+      <div class="row"><span>当前资金费率</span><b id="funding">--</b></div><div class="row"><span>持仓量 OI</span><b id="oi">--</b></div><div class="row"><span>拥挤度提示</span><b id="fundingMood">--</b></div><div class="row"><span>合约</span><b id="swapInst">--</b></div>
+    </article>
+
+    <article class="card half">
+      <h3>Risk Brain · 独立风控</h3>
+      <div class="row"><span>回撤预警</span><b class="warn">4%</b></div><div class="row"><span>防御模式</span><b class="warn">6%</b></div><div class="row"><span>硬风控目标</span><b class="bad">8%</b></div>
+      <div class="row"><span>数据不完整/过期</span><b class="warn">降级或否决</b></div><div class="row"><span>追损 / 自动加杠杆</span><b class="good">禁止</b></div><div class="row"><span>Risk Brain 否决权</span><b class="good">开启</b></div>
+    </article>
+
+    <article class="card half">
+      <h3>数据健康 · Data Guard</h3>
+      <div class="row"><span>核心数据</span><b id="coreHealth">检查中</b></div><div class="row"><span>辅助源可用</span><b id="sourceHealth">--</b></div><div class="row"><span>最新行情延迟</span><b id="latency">--</b></div><div class="row"><span>Risk Veto</span><b id="riskVeto">等待</b></div>
+      <p class="muted">单个辅助接口故障不会拖垮整个大脑；核心行情过期、样本不足或证据严重冲突时，Risk Brain 强制等待。</p>
+    </article>
+
+    <article class="card full">
+      <h3>AI 决策日志</h3><div id="log" class="log muted">[SYSTEM] AI Brain V3.1 启动<br>[DATA] Data Guard + Taker Flow 加载<br>[RISK] 独立 Risk Brain 已启用<br>[EXEC] 实盘交易保持关闭</div>
+    </article>
+  </section>
+  <div class="foot">OKX AI PRO · 研究系统，不构成收益保证或投资建议</div>
+</main>
+
+<script>
+let inst='BTC-USDT',tf='1H';
+const $=x=>document.getElementById(x),cap=x=>Math.max(0,Math.min(100,x));
+const fmt=x=>Number(x).toLocaleString(undefined,{maximumFractionDigits:2});
+function bar(id,v){$(id).style.width=cap(v)+'%'}
+function lg(s){$('log').innerHTML='['+new Date().toLocaleTimeString()+'] '+s+'<br>'+$('log').innerHTML}
+function ema(a,n){let k=2/(n+1),e=a[0];for(let x of a.slice(1))e=x*k+e*(1-k);return e}
+function rsi(a,n=14){if(a.length<n+1)return 50;let g=0,l=0;for(let i=a.length-n;i<a.length;i++){let d=a[i]-a[i-1];d>0?g+=d:l-=d}return l===0?100:100-100/(1+g/l)}
+function sd(a){if(!a.length)return 0;let m=a.reduce((x,y)=>x+y,0)/a.length;return Math.sqrt(a.reduce((s,x)=>s+(x-m)**2,0)/a.length)}
+async function get(url){let r=await fetch(url,{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);let j=await r.json();if(j.code!=='0')throw Error(j.msg||j.code);return j.data}
+function swapId(){return inst+'-SWAP'}
+function valueOr(result,fallback=[]){return result.status==='fulfilled'?result.value:fallback}
+function orderBookScore(book){let bids=book?.bids||[],asks=book?.asks||[];if(!bids.length||!asks.length)return null;let bv=bids.reduce((s,x)=>s+(+x[0])*(+x[1]),0),av=asks.reduce((s,x)=>s+(+x[0])*(+x[1]),0),tot=bv+av||1,share=bv/tot,imb=(bv-av)/tot,bestBid=+bids[0][0],bestAsk=+asks[0][0],mid=(bestBid+bestAsk)/2||1,spr=(bestAsk-bestBid)/mid*100;return{share,imb,spr,score:cap(50+imb*100),ts:+book.ts||0}}
+function tradeFlow(trades){if(!trades?.length)return null;let buy=0,sell=0,lastTs=0;for(let t of trades){let px=+t.px||0,sz=+t.sz||0,n=px*sz;if(t.side==='buy')buy+=n;else if(t.side==='sell')sell+=n;lastTs=Math.max(lastTs,+t.ts||0)}let total=buy+sell||1,imb=(buy-sell)/total;return{buy,sell,imb,score:cap(50+imb*100),ts:lastTs}}
+function fundingInfo(fr){let f=+(fr?.fundingRate||0),abs=Math.abs(f),mood=abs<0.0001?'中性':f>0?(abs>0.0005?'多头明显拥挤':'轻度多头拥挤'):(abs>0.0005?'空头明显拥挤':'轻度空头拥挤');return{f,mood}}
+function ageMs(ts){return ts?Math.max(0,Date.now()-ts):Infinity}
+function weighted(parts){let num=0,den=0;for(let [v,w] of parts){if(Number.isFinite(v)){num+=v*w;den+=w}}return den?num/den:50}
+
+async function load(){
+  let sid=swapId(),urls=[
+    get('https://www.okx.com/api/v5/market/ticker?instId='+inst),
+    get('https://www.okx.com/api/v5/market/candles?instId='+inst+'&bar='+tf+'&limit=100'),
+    get('https://www.okx.com/api/v5/market/books?instId='+inst+'&sz=20'),
+    get('https://www.okx.com/api/v5/market/trades?instId='+inst+'&limit=100'),
+    get('https://www.okx.com/api/v5/public/funding-rate?instId='+sid),
+    get('https://www.okx.com/api/v5/public/open-interest?instType=SWAP&instId='+sid)
+  ];
+  let results=await Promise.allSettled(urls),td=valueOr(results[0]),cd=valueOr(results[1]),bd=valueOr(results[2]),trd=valueOr(results[3]),fd=valueOr(results[4]),oid=valueOr(results[5]);
+  let optionalOk=results.slice(2).filter(x=>x.status==='fulfilled').length;
+  $('sourceHealth').textContent=optionalOk+'/4';
+
+  if(!td.length||cd.length<55){
+    $('live').textContent='● CORE DATA VETO';$('live').className='bad';$('riskVeto').textContent='否决：核心数据不足';$('riskVeto').className='bad';$('coreHealth').textContent='失败';$('coreHealth').className='bad';
+    $('signal').textContent='Risk Brain 否决';$('why').textContent='Ticker/K线属于核心数据，缺失时不产生交易方向。';lg('CORE DATA VETO | '+inst+' '+tf);return;
+  }
+
+  let d=td[0],last=+d.last,op=+d.open24h,hi=+d.high24h,lo=+d.low24h,ch=(last/op-1)*100,c=cd.map(x=>+x[4]).reverse();
+  let tickerAge=ageMs(+d.ts||0),candleAge=ageMs(+cd[0][0]||0),stale=tickerAge>60000||candleAge>Math.max(180000,tf==='15m'?20*60*1000:tf==='1H'?75*60*1000:5*60*60*1000);
+  let e20=ema(c.slice(-60),20),e50=ema(c,50),rv=rsi(c),rets=c.slice(-30).map((x,i,a)=>i?100*(x/a[i-1]-1):0).slice(1),vol=sd(rets);
+  let trend=cap(50+(last/e20-1)*900+(e20/e50-1)*1200),mom=cap(50+(rv-50)*1.25),loc=cap(hi===lo?50:(last-lo)/(hi-lo)*100),vq=cap(80-vol*10);
+  let ob=orderBookScore(bd[0]),flow=tradeFlow(trd),fund=fundingInfo(fd[0]),oi=oid[0];
+  let score=weighted([[trend,.32],[mom,.25],[loc,.16],[ob?.score,.17],[vq,.10]]);
+
+  let conflictCount=0;
+  if(ob&&((trend>65&&ob.score<40)||(trend<35&&ob.score>60)))conflictCount++;
+  if(flow&&((score>60&&flow.score<42)||(score<40&&flow.score>58)))conflictCount++;
+  let availability=60+optionalOk*10,agreement=100-conflictCount*25,confidence=cap(.55*availability+.45*agreement);
+  let hardVeto=stale||confidence<45;
+  let softWait=!hardVeto&&(confidence<60||conflictCount>=2);
+  if(conflictCount)score=50+(score-50)*(conflictCount===1?.82:.65);
+
+  let reg=vol>2.5?'高波动':last>e20&&e20>e50?'多头趋势':last<e20&&e20<e50?'空头趋势':'震荡/过渡';
+  let corroborateLong=score>66&&ob?.imb>.06&&flow?.imb>.08,corroborateShort=score<34&&ob?.imb<-.06&&flow?.imb<-.08;
+  let intent=corroborateLong?'主动买盘持续增强假设':corroborateShort?'主动卖盘持续增强假设':'证据不足 / 中性';
+  let sig=hardVeto?'Risk Brain 否决 · 数据质量不足':softWait?'等待 · 多源证据不足':score>=68?'偏多优势 · 等待风控确认':score<=32?'偏空/风险优势 · 避免盲目做多':'中性/震荡 · 等待优势扩大';
+
+  $('price').textContent='$'+fmt(last);$('change').textContent=(ch>=0?'+':'')+ch.toFixed(2)+'%';$('change').className='pill '+(ch>=0?'good':'bad');$('hi').textContent='$'+fmt(hi);$('lo').textContent='$'+fmt(lo);$('open').textContent='$'+fmt(op);$('vol').textContent=fmt(d.vol24h);
+  $('score').textContent=score.toFixed(0);$('signal').textContent=sig;$('why').textContent=tf+'：主评分使用趋势/动量/结构/盘口/波动；成交订单流只做确认与否决。数据异常时自动降级。';
+  [['tV','tB',trend],['mV','mB',mom],['lV','lB',loc],['bV','bB',ob?.score??50],['vV','vB',vq]].forEach(x=>{$(x[0]).textContent=x[2].toFixed(0);bar(x[1],x[2])});
+  $('ema20').textContent=fmt(e20);$('ema50').textContent=fmt(e50);$('rsi').textContent=rv.toFixed(1);$('regime').textContent=reg;$('confidence').textContent=confidence.toFixed(0)+'%';$('intent').textContent=intent;
+
+  if(ob){$('bidShare').textContent=(ob.share*100).toFixed(1)+'%';$('askShare').textContent=((1-ob.share)*100).toFixed(1)+'%';$('imbalance').textContent=(ob.imb*100).toFixed(1)+'%';$('spread').textContent=ob.spr.toFixed(4)+'%'}else{$('bidShare').textContent=$('askShare').textContent=$('imbalance').textContent=$('spread').textContent='不可用'}
+  if(flow){let total=flow.buy+flow.sell||1;$('takerBuy').textContent=(flow.buy/total*100).toFixed(1)+'%';$('takerSell').textContent=(flow.sell/total*100).toFixed(1)+'%';$('tfi').textContent=(flow.imb*100).toFixed(1)+'%';$('flowConfirm').textContent=corroborateLong||corroborateShort?'确认':'未确认'}else{$('takerBuy').textContent=$('takerSell').textContent=$('tfi').textContent='不可用';$('flowConfirm').textContent='降级'}
+  $('funding').textContent=fd.length?(fund.f*100).toFixed(4)+'%':'不可用';$('fundingMood').textContent=fd.length?fund.mood:'降级';$('oi').textContent=oi?fmt(oi.oi):'不可用';$('swapInst').textContent=sid;
+
+  $('latency').textContent=Number.isFinite(tickerAge)?Math.round(tickerAge/1000)+'s':'--';$('coreHealth').textContent=stale?'过期':'正常';$('coreHealth').className=stale?'bad':'good';$('riskVeto').textContent=hardVeto?'开启':'未触发';$('riskVeto').className=hardVeto?'bad':'good';
+  $('live').textContent=hardVeto?'● DATA VETO':optionalOk<4?'● DEGRADED LIVE':'● OKX DATA LIVE';$('live').className=hardVeto?'bad':optionalOk<4?'warn':'live';
+
+  let L=hardVeto?10:cap(score)*(confidence/100),S=hardVeto?10:cap(100-score)*(confidence/100),W=hardVeto?80:cap(100-confidence+Math.max(0,60-Math.abs(score-50)));let z=L+S+W||1;
+  $('pl').textContent=(L/z*100).toFixed(0)+'%';$('ps').textContent=(S/z*100).toFixed(0)+'%';$('pw').textContent=(W/z*100).toFixed(0)+'%';
+  lg(inst+' '+tf+' | score='+score.toFixed(0)+' | conf='+confidence.toFixed(0)+' | sources='+optionalOk+'/4 | '+reg+(hardVeto?' | VETO':''));
+}
+
+function safeLoad(){load().catch(e=>{$('live').textContent='● 数据重试中';$('live').className='warn';$('why').textContent='数据层出现异常，系统保持等待并自动重试。';$('riskVeto').textContent='开启';$('riskVeto').className='bad';lg('DATA ERROR: '+e.message)})}
+document.querySelectorAll('[data-id]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-id]').forEach(x=>x.classList.remove('on'));b.classList.add('on');inst=b.dataset.id;$('inst').textContent=inst;safeLoad()});
+document.querySelectorAll('[data-tf]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tf]').forEach(x=>x.classList.remove('on'));b.classList.add('on');tf=b.dataset.tf;safeLoad()});
+safeLoad();setInterval(safeLoad,15000);
+</script>
+</body>
+</html>
